@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React from 'react';
 import Icon from "react-icons-kit";
 import {plus} from 'react-icons-kit/feather/plus';
 import {minus} from 'react-icons-kit/feather/minus';
