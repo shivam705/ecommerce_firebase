@@ -77,7 +77,7 @@ export default function Register(){
 
         <Form.Group as={Row} className="mb-3">
             <Col sm={7}>
-            <Button type="submit" onClick={handleAction} variant="outline-primary">Sign in</Button>
+            <Button type="submit" onClick={handleAction} variant="outline-primary">Register</Button>
             <Link to="/"><Button variant="outline-primary" style={{marginLeft:"17px"}}>Login</Button></Link>
             </Col>
         </Form.Group>
