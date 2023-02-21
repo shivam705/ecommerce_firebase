@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function IndividualProducts({individualProducts,addToCart}){
-      console.log(individualProducts);
+      //console.log(individualProducts);
       const handleAddToCart=()=>{
             addToCart(individualProducts);
 

@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar';
 import { auth,db } from './firebase-config';
 import Products from './Products';
+
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import  {Carousel}  from 'react-responsive-carousel';
 //import { collection, addDoc, getDocs } from "firebase/firestore";
 
 export default function Home() {
@@ -104,6 +107,18 @@ export default function Home() {
         <div>
             <Navbar user={user}/>
             <br></br>
+            
+                <div style={{width:'40%',height:'40%', margin:'auto'}}>
+                    <Carousel autoPlay>
+                        {products.map((s)=>
+                            <img src={s.url} alt="product-img" />
+                        )}
+                    </Carousel>
+                </div>
+            <br/>
+
+
+            
             {products.length>0 && (
                 <div className='container-fluid' >
                     <h1 className='text-center'>Products
@@ -118,6 +133,7 @@ export default function Home() {
                     please wait ......
                 </div>
             )}
+            
         </div>
     );
 }
