@@ -8,7 +8,7 @@ export default function IndividualProducts({individualProducts,addToCart}){
       }
       return(
             <>
-            <div className="p-2"  >
+            <div className="p-2" style={{flex:"1",margin:"10px",padding:"10px",border:"1px solid #ccc",borderRadius:"5px",backgroungColor:"#fff"}} >
                   
                   <div className="p-3" >
                         <img src={individualProducts.url} alt="product-img" width={200} height={200} />

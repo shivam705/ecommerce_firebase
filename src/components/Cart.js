@@ -39,14 +39,17 @@ export default function Cart(){
             },[])
             return user;
         }
-        
+        useEffect(()=>{
+              
+        })
         const user=GetCurrentUser();
 
 
         //state of cart product
         const [cartProducts, setCartProducts]= useState([]);
-
+        const navigate = useNavigate();
         useEffect(()=>{
+            let authToken = sessionStorage.getItem('Auth Token')
               auth.onAuthStateChanged(user=>{
                     if(user){
                           db.collection('Cart '+user.uid).onSnapshot(snapshot=>{
@@ -57,7 +60,8 @@ export default function Cart(){
                               setCartProducts(newCartProduct);
                           })
                           
-                    }else{
+                    }else if(!user||!authToken){
+                          navigate('/');
                           console.log('User is not signed in to retrive cart');
                     }
               })
@@ -128,7 +132,7 @@ export default function Cart(){
               })
         }
 
-        const navigate=useNavigate();
+       
         //charging payment
         const handleToken=async(token)=>{
             //   console.log(token);
@@ -141,7 +145,7 @@ export default function Cart(){
             let {status}=response.data;
             if(status==='success'){
                   console.log("success")
-                  navigate('/home');
+                  navigate('/');
                   toast.success('Your order has been placed syccessfully',{
                         position: 'top-right',
                         autoClose:5000,
@@ -166,36 +170,44 @@ export default function Cart(){
     return (
           <div>
                 <Navbar user={user} />
+                <div>
                 {cartProducts.length> 0 &&(
                       <div className="container-fluid">
-                        <h1 className="text-center">Cart</h1>
-                              <div className="products-box" style={{display:'flex'}}>
-                                    <CartProducts cartProducts={cartProducts}
-                                    cartProductIncrease={cartProductIncrease}
-                                    cartProductDecrement={cartProductDecrement}/>
+                              <h1 className="text-center">Cart</h1>
+                              <div style={{ display:"flex",flexDirection:"column"}}>
+                                    <div className="products-box" style={{ display:"flex",flexDirection:"row",flexWrap:"wrap",alignContent:"center",justifyContent:"start",marginRight:"5%",marginLeft:"5%",textAlign:"center"}}>
+                                          <CartProducts cartProducts={cartProducts}
+                                          cartProductIncrease={cartProductIncrease}
+                                          cartProductDecrement={cartProductDecrement}/>
+                                    </div> 
                               </div>
-                              <div style={{marginLeft:'50%'}}>
-                                    <h5>Cart Summary</h5>
-                                    <div>
-                                          Total No of Products: <span>{totalQty}</span>
+                              <div style={{textAlign:"center",marginLeft:"42%",marginRight:"42%"}}>
+                                    <div className="center" style={{margin:"10px",padding:"10px",border:"1px solid #ccc",borderRadius:"5px",backgroungColor:"#fff"}}>
+                                          <h5>Cart Summary</h5>
+                                          <div>
+                                                Total No of Products: <span>{totalQty}</span>
+                                          </div>
+                                          <div>
+                                                Total Price to Pay; <span>$ {totalProductPrice}</span>
+                                          </div>
+                                          <br></br>
+                                          <StripeCheckout
+                                                stripeKey="pk_test_51MaZOTSIOJ6brQjUbSSJ60DK58HDa8aWKUg4L2FlYwUaic2dKlcdN0DIlGpdnr7l47AIJkV6iptPLtfoLCKzZ8qm00UcRITLZ6"
+                                                token={handleToken}
+                                                billingAddress
+                                                shippingAddress
+                                                name='All Products'
+                                                amount={totalProductPrice*100}>
+                                          </StripeCheckout>
+                                          <h6 className='text-center' style={{marginTop:7+'px'}}>OR</h6>
+                                          <button onClick={()=>triggerModel()}>Cash on Delivery</button>
                                     </div>
-                                    <div>
-                                          Total Price to Pay; <span>$ {totalProductPrice}</span>
-                                    </div>
-                                    <br></br>
-                                    <StripeCheckout
-                                          stripeKey="pk_test_51MaZOTSIOJ6brQjUbSSJ60DK58HDa8aWKUg4L2FlYwUaic2dKlcdN0DIlGpdnr7l47AIJkV6iptPLtfoLCKzZ8qm00UcRITLZ6"
-                                          token={handleToken}
-                                          billingAddress
-                                          shippingAddress
-                                          name='All Products'
-                                          amount={totalProductPrice*100}>
-                                    </StripeCheckout>
-                                    <h6 className='text-center' style={{marginTop:7+'px',marginRight:'80%'}}>OR</h6>
-                                    <button onClick={()=>triggerModel()}>Cash on Delivery</button>
                               </div>
+                              
                       </div>
                 )}
+                </div>
+                
                 {cartProducts.length<1&&(
                       <div className="container-fluid">
                              No Products to Cart....

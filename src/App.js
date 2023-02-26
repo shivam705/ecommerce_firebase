@@ -12,10 +12,10 @@ function App() {
   return (
       <Router>
           <Routes>
-              <Route exact path='/' element={< Login />} ></Route>
+              <Route exact path='/' element={< Home />} ></Route>
              
               <Route exact path='/signup' element={< Register />} />
-              <Route exact path='/home' element={< Home />} />
+              <Route exact path='/login' element={< Login />} />
               <Route exact path='/cart' element={<Cart/>}/>
               <Route exact path='/add-products' element={< AddProducts />} />
           </Routes>

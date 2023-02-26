@@ -6,7 +6,7 @@ import { auth,db } from './firebase-config';
 import Products from './Products';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import  {Carousel}  from 'react-responsive-carousel';
+//import  {Carousel}  from 'react-responsive-carousel';
 //import { collection, addDoc, getDocs } from "firebase/firestore";
 
 export default function Home() {
@@ -90,7 +90,9 @@ export default function Home() {
 
     let Product;
     const addToCart=(product)=>{
-        if(uid!==null){
+        auth.onAuthStateChanged(user=>{
+           
+        if(user){
             console.log(product);
             Product=product;
             Product['qty']=1;
@@ -99,8 +101,8 @@ export default function Home() {
                 console.log('successfully added to cart');
             })
         }else{
-        navigate('/');
-        }
+        navigate('/login');
+        }})
     }
 
     return (
@@ -108,28 +110,29 @@ export default function Home() {
             <Navbar user={user}/>
             <br></br>
             
-                <div style={{width:'40%',height:'40%', margin:'auto'}}>
+                {/* <div style={{width:'40%',height:'40%', margin:'auto'}}>
                     <Carousel autoPlay>
                         {products.map((s)=>
                             <img src={s.url} alt="product-img" />
                         )}
                     </Carousel>
-                </div>
-            <br/>
+                </div> */}
+            
 
 
             
             {products.length>0 && (
-                <div className='container-fluid' >
-                    <h1 className='text-center'>Products
-                        <div className='product-box' style={{display:'flex'}}>
-                            <Products products={products} addToCart={addToCart}/>
-                        </div>
-                    </h1>
-                </div>
+                <h1 className='text-center'>Products
+                    <div className='container-fluid'style={{ marginTop:"3%", display:"flex",flexDirection:"column"}} >
+                        
+                            <div className='product-box'  style={{ display:"flex",flexDirection:"row",flexWrap:"wrap",alignContent:"center",justifyContent:"start"}}>
+                                <Products products={products} addToCart={addToCart}/>
+                            </div>
+                    </div>
+                </h1>
             )}
             {products.length<1 && (
-                <div className='çontainer-fluid'>
+                <div className='container-fluid'>
                     please wait ......
                 </div>
             )}

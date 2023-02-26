@@ -23,8 +23,9 @@ export default function Login(){
         } else {
             signInWithEmailAndPassword(authentication, email, password)
             .then((response) => {
-              navigate('/home')
               sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+              navigate('/')
+              
             })
             .catch((error) => {
                 console.log(error.code)
@@ -43,7 +44,7 @@ export default function Login(){
         let authToken = sessionStorage.getItem('Auth Token')
     
         if (authToken) {
-          navigate('/home')
+          navigate('/')
         }
       }, [navigate])
 

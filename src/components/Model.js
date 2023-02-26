@@ -37,7 +37,7 @@ export default function Model({totalProductPrice,totalQty,hideModel}){
                  await db.collection('Cart '+uid).doc(snap.id).delete();
            }
            hideModel();
-           navigate('/home');
+           navigate('/');
       }
 
       return(
