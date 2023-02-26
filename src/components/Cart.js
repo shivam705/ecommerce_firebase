@@ -47,9 +47,9 @@ export default function Cart(){
 
         //state of cart product
         const [cartProducts, setCartProducts]= useState([]);
-        const navigate = useNavigate();
+        
         useEffect(()=>{
-            let authToken = sessionStorage.getItem('Auth Token')
+            //let authToken = sessionStorage.getItem('Auth Token')
               auth.onAuthStateChanged(user=>{
                     if(user){
                           db.collection('Cart '+user.uid).onSnapshot(snapshot=>{
@@ -60,8 +60,8 @@ export default function Cart(){
                               setCartProducts(newCartProduct);
                           })
                           
-                    }else if(!user||!authToken){
-                          navigate('/');
+                    }else {
+                          //navigate('/');
                           console.log('User is not signed in to retrive cart');
                     }
               })
@@ -132,7 +132,7 @@ export default function Cart(){
               })
         }
 
-       
+        const navigate = useNavigate();
         //charging payment
         const handleToken=async(token)=>{
             //   console.log(token);
