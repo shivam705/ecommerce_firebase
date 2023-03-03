@@ -6,8 +6,8 @@ import { auth,db } from './firebase-config';
 import Products from './Products';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-//import  {Carousel}  from 'react-responsive-carousel';
-//import { collection, addDoc, getDocs } from "firebase/firestore";
+import SearchItems from './SearchItems';
+
 
 export default function Home() {
     
@@ -30,7 +30,6 @@ export default function Home() {
     
 
 
-
     function GetCurrentUser(){
         const [user,setUser]=useState(null);
         useEffect(()=>{
@@ -48,7 +47,6 @@ export default function Home() {
     }
     
     const user=GetCurrentUser();
-    //console.log(user);
 
 
 
@@ -76,17 +74,6 @@ export default function Home() {
     },[])
 
 
-    // const [totalProducts, setTotalProducts]=useState(0);
-    // useEffect(()=>{
-    //     auth.onAuthStateChanged(user=>{
-    //         if(user){
-    //             db.collection('Cart '+user.id).onSnapshot(snapshot=>{
-    //                 const qty= snapshot.docs.length;
-    //                 setTotalProducts(qty);
-    //             })
-    //         }
-    //     })
-    // },[])
 
     let Product;
     const addToCart=(product)=>{
@@ -105,11 +92,29 @@ export default function Home() {
         }})
     }
 
+    //const [prod, setProd]= useState([]);
+    
+    const getFilterSearch = (searchText) => {
+        const data = products?.filter((res) =>
+          res.title.toLowerCase().includes(searchText.toLowerCase())
+        );
+        console.log(data);
+        if(searchText!==null)
+        {
+           setProducts(data);
+        }else if(searchText===null){
+            getProducts();
+        }
+
+      };
+
     return (
         <div>
             <Navbar user={user}/>
             <br></br>
-            
+
+            <SearchItems getFilterSearch={getFilterSearch}/>
+
                 {/* <div style={{width:'40%',height:'40%', margin:'auto'}}>
                     <Carousel autoPlay>
                         {products.map((s)=>
@@ -117,9 +122,6 @@ export default function Home() {
                         )}
                     </Carousel>
                 </div> */}
-            
-
-
             
             {products.length>0 && (
                 <h1 className='text-center'>Products

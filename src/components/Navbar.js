@@ -5,8 +5,6 @@ import logo from '../Images/cart.png';
 import {shoppingCart} from 'react-icons-kit/feather/shoppingCart';
 import {auth} from './firebase-config';
 import { db } from "./firebase-config";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 
 export default function Navbar({user}){
 
@@ -52,19 +50,11 @@ export default function Navbar({user}){
                     <img src={logo} alt='logo' width={70}/>
                 </div>
             </div>
-            <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+            
             <div className='rightside' style={{display:'flex', marginRight:'5em'}}>
                 {!user&&<>
                     <div><Link className='navlink' to="/signup">SIGNUP</Link></div>
-                    <div><Link className='navlink' to="/login">LOGIN</Link></div>
+                    <div><Link className='navlink' to="/login" style={{marginLeft:"15%"}}>LOGIN</Link></div>
                 </>}
                 
                 {user&&<>
