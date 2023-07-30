@@ -10,12 +10,13 @@ const SearchItems= ({ getFilterSearch }) => {
   };
 
   return (
-    <div className="search-container">
+    <div className="search-container" >
       <input
         placeholder="🔎 &nbsp;Search for restaurant, cusinie or a dish"
         className="search-input"
         onChange={(e) => setSearchtext(e.target.value)}
         onKeyDown={filterRestaurants}
+        style={{marginLeft:"33%"}}
       />
     </div>
   );

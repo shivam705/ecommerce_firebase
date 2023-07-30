@@ -6,7 +6,7 @@ export default function IndividualProducts({individualProducts,addToCart}){
             addToCart(individualProducts);
 
       }
-      const avgRating=4;
+      
       return(
             <>
             <div className="p-2" style={{flex:"1",margin:"10px",padding:"10px",border:"1px solid #ccc",borderRadius:"5px",backgroungColor:"#fff"}} >
@@ -20,9 +20,9 @@ export default function IndividualProducts({individualProducts,addToCart}){
                         <div className="product-text price"><h4>${individualProducts.price}</h4></div>
                         <span
                               className="restaurant-rating" 
-                              style={{ backgroundColor: +avgRating >= 4 ? "#48c479" : "#db7c38",color:"#fff", padding:"0.2rem 0.5rem",display:"flex", maxWidth:"25%",marginLeft:"37%" }}
+                              style={{ backgroundColor: +individualProducts.rating >= 4 ? "#48c479" : "#db7c38",color:"#fff", padding:"0.2rem 0.5rem",display:"flex", maxWidth:"25%",marginLeft:"37%" }}
                               >
-                              ★ &nbsp;<span style={{}}>{avgRating}</span>
+                              ★ &nbsp;<span >{individualProducts.rating}</span>
                         </span>
                         <div className="btn btn-danger btn-md cart-btn" onClick={handleAddToCart}>Add To CART</div>
                   </div> 

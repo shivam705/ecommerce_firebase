@@ -7,6 +7,7 @@ function AddProducts() {
   const [description , setDescription] = useState('');
   const [price, setPrice]= useState('');
   const [image,setImage] =useState(null);
+  const [rating, setRating]=useState(3);
 
   const [imageError, setImageError]=useState('');
 
@@ -26,6 +27,7 @@ function AddProducts() {
           title,
           description,
           price:Number(price),
+          rating,
           url
         }).then(()=>{
           setSuccessMsg('Product added successfully');
@@ -85,7 +87,10 @@ function AddProducts() {
                 <label>Upload Product Image</label>
                 <input type="file" id="file" className='form-control' required
                 onChange={handleProductImg}></input>
-                
+                <br></br>
+                <label>Rating</label>
+                <input type="number"className='form-control' required
+                onChange={(e)=>setRating(e.target.value)} value={rating}></input>
                 {imageError&&<>
                     <br></br>
                     <div className='error-msg'>{imageError}</div>

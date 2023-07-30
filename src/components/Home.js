@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar';
 import { auth,db } from './firebase-config';
 import Products from './Products';
-
+import "../index.css"
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SearchItems from './SearchItems';
 
@@ -102,8 +102,9 @@ export default function Home() {
         if(searchText!==null)
         {
            setProducts(data);
-        }else if(searchText===null){
-            getProducts();
+        }else if(searchText===''){
+            const p=getProducts();
+            setProducts(p);
         }
 
       };
