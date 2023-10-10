@@ -1,5 +1,5 @@
 
-import React,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar';
 import { auth,db } from './firebase-config';
@@ -7,6 +7,7 @@ import Products from './Products';
 import "../index.css"
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SearchItems from './SearchItems';
+import CurrentLocation from './location/CurrentLocation';
 
 
 export default function Home() {
@@ -92,15 +93,15 @@ export default function Home() {
         }})
     }
 
-    //const [prod, setProd]= useState([]);
+
     
     const getFilterSearch = (searchText) => {
-        const data = products?.filter((res) =>
-          res.title.toLowerCase().includes(searchText.toLowerCase())
-        );
-        console.log(data);
-        if(searchText!==null)
+        if(searchText!=='')
         {
+           const data = products?.filter((res) =>
+              res.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+            console.log(data);
            setProducts(data);
         }else if(searchText===''){
             const p=getProducts();
@@ -109,10 +110,33 @@ export default function Home() {
 
       };
 
+    
+
+    let wishProduct;
+    const addToWishList=(product)=>{
+        //checkWishProduct = db.collection('WishList '+uid).doc(product.ID).get();
+        auth.onAuthStateChanged(user=>{
+            if(user){
+                console.log(product);
+                wishProduct=product;
+                wishProduct['qty']=1;
+                wishProduct['TotalProductPrice']=wishProduct.qty*wishProduct.price;
+                db.collection('WishList '+uid).doc(product.ID).set(wishProduct).then(()=>{
+                    console.log('successfully added to wishlist');
+                })
+            }else
+            {
+                navigate('/login');
+            }
+        })
+    }
+
     return (
         <div>
             <Navbar user={user}/>
             <br></br>
+
+            <CurrentLocation/>
 
             <SearchItems getFilterSearch={getFilterSearch}/>
 
@@ -129,8 +153,9 @@ export default function Home() {
                     <div className='container-fluid'style={{ marginTop:"3%", display:"flex",flexDirection:"column"}} >
                         
                             <div className='product-box'  style={{ display:"flex",flexDirection:"row",flexWrap:"wrap",alignContent:"center",justifyContent:"start"}}>
-                                <Products products={products} addToCart={addToCart}/>
+                                <Products products={products} addToCart={addToCart} addToWishList={addToWishList}/>
                             </div>
+                            
                     </div>
                 </h1>
             )}

@@ -51,7 +51,7 @@ export default function Login(){
 
   return (
           
-        <div className='container' style={{ textAlign:"center", marginTop:"10%"}}>
+        <div className="container" style={{ textAlign:"center", marginTop:"10%"}}>
             <h1>Login Page</h1>
             <hr/>
             
@@ -82,6 +82,10 @@ export default function Login(){
                     </Col>
                 </Form.Group>
             </Form>
+
+            
         </div>
+
+        
   );
 };

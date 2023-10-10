@@ -22,10 +22,10 @@ export default function Register(){
   const handleAction = (e) => {
     e.preventDefault();
     const authentication = getAuth();
-    //if (id === 2) {
       createUserWithEmailAndPassword(authentication, email, password)
       .then((response) => {
-        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+        //console.log(response);
+        //sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
         db.collection('users').doc(response.user.uid).set({
           Email: email,
           Password: password
@@ -39,10 +39,12 @@ export default function Register(){
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           toast.error('Email Already in Use');
+        }else if(error.code === 'auth/invalid-email'){
+          toast.error("Please enter a valid Email");
+        }else if(error.code === 'auth/weak-password'){
+          toast.error('Password should be at least 6 characters')
         }
       })
-      
-   //}
 }
   return (
     <div className='container' style={{ textAlign:"center" , marginTop:"10%"}}>
