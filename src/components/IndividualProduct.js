@@ -1,6 +1,7 @@
-import React,{ useState,useEffect } from "react";
-import { auth,db } from './firebase-config';
-import {AiFillHeart} from 'react-icons/ai';
+import React from "react";
+// import React,{ useState,useEffect } from "react";
+// import { auth,db } from './firebase-config';
+// import {AiFillHeart} from 'react-icons/ai';
 
 export default function IndividualProducts({individualProducts,addToCart,addToWishList}){
       //console.log(individualProducts);
@@ -10,51 +11,51 @@ export default function IndividualProducts({individualProducts,addToCart,addToWi
       }
 
       // gettin current user uid
-      function GetUserUid(){
-            const [uid, setUseruid]=useState(null);
-            useEffect(()=>{
-            auth.onAuthStateChanged(user=>{
-                  if(user){
-                        setUseruid(user.uid);
-                  }
-                  })
-            },[])
-            return uid;
-      }
-      const uid=GetUserUid();
+      // function GetUserUid(){
+      //       const [uid, setUseruid]=useState(null);
+      //       useEffect(()=>{
+      //       auth.onAuthStateChanged(user=>{
+      //             if(user){
+      //                   setUseruid(user.uid);
+      //             }
+      //             })
+      //       },[])
+      //       return uid;
+      // }
+      // const uid=GetUserUid();
 
 
-      let product = false;
-      const [toggleHeart, setToggleHeart] = useState(false);
-      const handleAddToWishList = async() =>{
-            for(var snap of 'WishList'+uid.docs){
-                  if(snap.ID===individualProducts.ID){
-                        product=true;
-                        break;
-                  }
-            }
-            if(product===true)
-            {
-                  await db.collection('WishList '+uid).doc(individualProducts.ID).delete();
-                  setToggleHeart(false);
-                  product=false;
+      // let product = false;
+      // const [toggleHeart, setToggleHeart] = useState(false);
+      // const handleAddToWishList = async() =>{
+      //       for(var snap of 'WishList'+uid.docs){
+      //             if(snap.ID===individualProducts.ID){
+      //                   product=true;
+      //                   break;
+      //             }
+      //       }
+      //       if(product===true)
+      //       {
+      //             await db.collection('WishList '+uid).doc(individualProducts.ID).delete();
+      //             // setToggleHeart(false);
+      //             product=false;
                   
-            }else
-            // if(product===false)
-            {
-                  addToWishList(individualProducts);
-                  setToggleHeart(true);
-                  product=true;
-                  //addToWishList(individualProducts);
-            }
+      //       }else
+      //       // if(product===false)
+      //       {
+      //             addToWishList(individualProducts);
+      //             // setToggleHeart(true);
+      //             product=true;
+      //             //addToWishList(individualProducts);
+      //       }
             
-            // if(toggleHeart){
-            //       setToggleHeart(false);
-            // }
-            // if(!toggleHeart){
-                  //setToggleHeart(true);
-            // }
-       };
+      //       // if(toggleHeart){
+      //       //       setToggleHeart(false);
+      //       // }
+      //       // if(!toggleHeart){
+      //             //setToggleHeart(true);
+      //       // }
+      //  };
 
       return(
             <>

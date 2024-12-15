@@ -7,7 +7,7 @@ import Products from './Products';
 import "../index.css"
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SearchItems from './SearchItems';
-import CurrentLocation from './location/CurrentLocation';
+// import CurrentLocation from './location/CurrentLocation';
 
 
 export default function Home() {
