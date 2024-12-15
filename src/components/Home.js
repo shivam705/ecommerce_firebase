@@ -136,7 +136,7 @@ export default function Home() {
             <Navbar user={user}/>
             <br></br>
 
-            <CurrentLocation/>
+            {/* <CurrentLocation/> */}
 
             <SearchItems getFilterSearch={getFilterSearch}/>
 
