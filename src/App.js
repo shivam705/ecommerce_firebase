@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import AddProducts from './components/AddProducts';
 import Cart from './components/Cart';
+import OrderList from './components/profile/orders';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import  db  from './components/firebase-config';
 //import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
@@ -17,6 +18,7 @@ function App() {
               <Route exact path='/signup' element={< Register />} />
               <Route exact path='/login' element={< Login />} />
               <Route exact path='/cart' element={<Cart/>}/>
+              <Route exact path='/profile/orders' element={<OrderList/>}/>
               <Route exact path='/add-products' element={< AddProducts />} />
           </Routes>
       </Router>

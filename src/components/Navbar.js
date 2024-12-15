@@ -59,6 +59,7 @@ export default function Navbar({user}){
                 
                 {user&&<>
                     <div style={{marginRight:'2em'}}><Link className="navlink" to="/">{user}</Link></div>
+                    <div style={{marginRight:'2em'}}><Link className="navlink" to="/profile/orders">Orders</Link></div>
                     <div className="cart-menu-btn" style={{marginRight:'2em'}}>
                         <Link className="navlink" to="/cart" style={{marginLeft:'1em'}}>
                             <Icon icon={shoppingCart} size={20}/>

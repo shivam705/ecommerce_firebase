@@ -32,8 +32,11 @@ export default function Model({totalProductPrice,totalQty,hideModel}){
            const cartData= await db.collection('Cart '+uid).get();
            for(var snap of cartData.docs){
                  var data=snap.data();
+                 console.log(snap.id);
                  data.ID=snap.id;
-                 await db.collection('Buyer-Cart '+uid).add(data);
+                 console.log(data.ID);
+                 //await db.collection('Buyer-Cart '+uid).add(snap);
+                 await db.collection('Buyer-Cart ' + uid).doc(snap.id).set(data);
                  await db.collection('Cart '+uid).doc(snap.id).delete();
            }
            hideModel();
